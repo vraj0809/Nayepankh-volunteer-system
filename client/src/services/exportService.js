@@ -1,5 +1,5 @@
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import api from './api';
 
 export const exportService = {
@@ -29,7 +29,7 @@ export const exportService = {
     doc.setFont('helvetica', 'bold');
     doc.text('Summary Statistics', 14, 38);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 42,
       head: [['Total', 'Approved', 'Pending', 'Rejected']],
       body: [[stats.total, stats.approved, stats.pending, stats.rejected]],
@@ -52,7 +52,7 @@ export const exportService = {
       new Date(v.registeredAt).toLocaleDateString('en-IN'),
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: doc.lastAutoTable.finalY + 10,
       head: [['#', 'Name', 'Email', 'Phone', 'City', 'College', 'Skills', 'Status', 'Date']],
       body: tableData,
